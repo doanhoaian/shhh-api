@@ -5,12 +5,16 @@ const roleMid = ({ roles = [], allowOwner = false } = {}) => {
         const user = req.user;
 
         if (!user) {
-            throw createError(401, "Authentication required");
+            return next(createError(401, "Authentication required"));
+        }
+
+        if (process.env.FIREBASE_AUTH_ROLE === "false") {
+            return next();
         }
 
         const userId = user.uid;
         const userRole = user.role;
-        const resourceId = req.body.user_id || req.params.id || null;
+        const resourceId = req.body.user_id || req.params.id || req.body.id;
 
         const hasRole = roles.length === 0 || roles.includes(userRole);
         let isOwner = false;
@@ -20,7 +24,7 @@ const roleMid = ({ roles = [], allowOwner = false } = {}) => {
         }
 
         if (!hasRole && !isOwner) {
-            throw createError(403, "Permission denied");
+            return next(createError(403, "Permission denied"));
         }
 
         next();

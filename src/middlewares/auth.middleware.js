@@ -4,7 +4,7 @@ const createError = require("../utils/createError");
 
 const authMid = () => {
     return async (req, res, next) => {
-        if (process.env.USE_FIREBASE_AUTH === "false") {
+        if (process.env.FIREBASE_AUTH_TOKEN === "false") {
             // For local testing without Firebase
             req.user = { uid: "test-user", role: "user" };
             return next();
