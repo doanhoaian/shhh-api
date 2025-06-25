@@ -8,14 +8,16 @@ const errorMid = require('./middlewares/error.middleware');
 
 const userRoutes = require('./modules/users/routes');
 const otpRoutes = require('./modules/otps/routes');
-const confessionRoutes = require('./modules/confessions/routes');
+const postRoutes = require('./modules/posts/routes');
+const meRoutes = require('./modules/me/routes');
 
 app.use(cors());
 app.use(bodyParser.json());
 
 app.use('/api/users', userRoutes);
 app.use('/api/otps', otpRoutes);
-app.use('/api/confessions', confessionRoutes);
+app.use('/api/posts', postRoutes);
+app.use('/api/me', meRoutes);
 
 app.use(errorMid);
 

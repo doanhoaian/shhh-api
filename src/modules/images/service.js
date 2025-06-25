@@ -12,13 +12,16 @@ const imageService = {
         const uploadPromises = files.map(file =>
             new Promise((resolve, reject) => {
                 const stream = cloudinary.uploader.upload_stream(
-                    { resource_type: "image" },
+                    { 
+                        resource_type: "image",
+                        folder: "shhh/posts"
+                    },
                     async (error, result) => {
                         if (error) return reject(error);
-                        // Lưu vào DB
+                        const baseUrl = result.secure_url.split("/upload/")[0] + "/upload/";
                         const image = await imageModel.createImage({
                             id: result.public_id,
-                            base_url: result.secure_url,
+                            base_url: baseUrl,
                             format: result.format,
                             width: result.width,
                             height: result.height,

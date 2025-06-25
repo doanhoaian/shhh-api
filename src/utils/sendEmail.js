@@ -3,19 +3,19 @@ const sesClient = require('../configs/aws');
 const { SendEmailCommand } = require('@aws-sdk/client-ses');
 const createError = require('./createError');
 
-const APP_NAME = "Shhh";
-const FROM_EMAIL = "Shhh <no-reply@dihaver.tech>";
+const APP_NAME = "C.A.M.P.U.S";
+const FROM_EMAIL = "C.A.M.P.U.S <no-reply@dihaver.tech>";
 
 function getEmailSubject(type) {
     switch (type) {
         case "verify_email":
-            return "Xác thực email - Ứng dụng Shhh";
+            return "Xác thực email - Ứng dụng C.A.M.P.U.S";
         case "2fa_login":
-            return "Mã đăng nhập 2 bước - Shhh";
+            return "Mã đăng nhập 2 bước - C.A.M.P.U.S";
         case "reset_password":
-            return "Yêu cầu đổi mật khẩu - Shhh";
+            return "Yêu cầu đổi mật khẩu - C.A.M.P.U.S";
         default:
-            return "Mã xác thực OTP - Shhh";
+            return "Mã xác thực OTP - C.A.M.P.U.S";
     }
 }
 

@@ -12,7 +12,7 @@ const upload = multer({
     },
     fileFilter: (req, file, cb) => {
         const ext = path.extname(file.originalname).toLowerCase();
-        if ([".jpg", ".jpeg", ".png", ".webp"].includes(ext)) {
+        if ([".jpg", ".jpeg", ".png", ".webp", ".gif"].includes(ext)) {
             cb(null, true);
         } else {
             cb(new Error("Only image files are allowed (.jpg, .jpeg, .png, .webp)"));
@@ -24,15 +24,27 @@ const authMid = require('../../middlewares/auth.middleware');
 const validateMid = require('../../middlewares/validate.middleware');
 const limitMid = require('../../middlewares/limit.middleware');
 
-const { createConfessionSchema } = require('./schema');
-const { createConfession } = require('./controller');
+const { createPostSchema } = require('./schema');
+const { createPost, getFeedIds, getFeedContent } = require('./controller');
 
 router.post(
     '/create',
     authMid(),
-    upload.array('images', 5),
-    validateMid(createConfessionSchema),
-    createConfession
+    upload.array('images', 8),
+    validateMid(createPostSchema),
+    createPost
+);
+
+router.get(
+    '/feed/ids',
+    authMid(),
+    getFeedIds
+);
+
+router.post(
+    '/feed/content',
+    authMid(),
+    getFeedContent
 );
 
 module.exports = router;
