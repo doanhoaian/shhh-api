@@ -1,0 +1,7 @@
+{
+  command: string,       // 'SELECT', 'INSERT', ...
+  rowCount: number,      // Số dòng bị ảnh hưởng/trả về
+  oid: number | null,    // Ít dùng
+  fields: FieldDef[],    // Mô tả từng cột
+  rows: any[]            // Mảng kết quả (nếu có)
+}
